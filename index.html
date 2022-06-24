@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Rouge Manor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300&family=Staatliches&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body class="game-container">
+    <header class="header-container">
+      <div class="logo" style="background: url('./images/icons/logo.gif')"></div>
+      <div class="level-display">
+        <span class="level">Lvl 1</span>
+        <progress class="experience" value="50" max="100"></progress>
+      </div>
+      <div class="profile-card">
+        <div class="details">
+          <div class="username"></div>
+          <div class="current-coins"></div>
+        </div>
+        <div class="portrait" style="background-image: url('./images/avatar/light.gif')"></div>
+      </div>
+    </header>
+    <nav class="nav-container">
+      <div class="link active" data-link="profile">Profile</div>
+      <div class="link" data-link="inventory">Inventory</div>
+      <div class="link" data-link="dungeon">Dungeon</div>
+      <div class="link" data-link="crate">Open Crate</div>
+      <div class="link" data-link="jackpot">Loot Jackpot</div>
+      <div class="link" data-link="merchant">Merchant</div>
+      <div class="link" data-link="journal">Journal</div>
+    </nav>
+    <main class="main-container">
+      <div class="panel profile active" data-page="profile">
+        <div class="details">
+          <div class="title">Profile</div>
+          <div class="description">Player details...</div>  
+        </div>
+      </div>
+      <div class="panel" data-page="inventory">
+        <div class="title">
+          <span>Inventory</span>
+          <small>0 / 4 slots</small>
+        </div>
+        <div class="inventory"></div>
+      </div>
+      <div class="panel" data-page="dungeon">
+        <div class="title">Dungeon</div>
+        <div class="enemy-container"></div>
+        <div class="dungeon-info">
+          <span class="current-wave">-</span>
+          <span class="enemies-left">-</span>
+        </div>
+      </div>
+      <div class="panel" data-page="crate">
+        <div class="title">Open Crate</div>
+        <div class="crate">
+          <div id="container">
+            <div class="overlay"></div>
+            <div class="slider-wrapper"></div>
+            <div class="middle"></div>
+          </div>
+          <div class="button" id="btn">Open</div>
+          <div class="layout"></div>
+        </div>
+      </div>
+      <div class="panel" data-page="jackpot">
+        <div class="title">Loot Jackpot</div>
+        <div class="jackpot"></div>
+      </div>
+      <div class="panel" data-page="merchant">
+        <div class="title">Merchant</div>
+        <div class="shop"></div>
+      </div>
+      <div class="panel" data-page="journal">
+        <div class="title">Journal</div>
+        <div class="journal"></div>
+      </div>
+    </main>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
