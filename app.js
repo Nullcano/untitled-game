@@ -5,7 +5,7 @@ import { animals } from './lib/farm.js'
 import { normalEnemies, eliteEnemies, bossEnemies } from './lib/enemies.js'
 
 const usernameDisplay = document.querySelectorAll('.username')
-const levelDisplay = document.querySelector('.level')
+const levelDisplay = document.querySelectorAll('.level-display')
 const enemyKills = document.querySelector('.enemies-left')
 const activeDamageDisplay = document.querySelector('.active-damage')
 const passiveDamageDisplay = document.querySelector('.passive-damage')
@@ -174,19 +174,22 @@ const checkLevel = () => {
 const updatePlayerCoins = () => {
   document.querySelector('.coins-display').innerHTML = formatNumber(player.coins)
 }
-
+const updatePlayerGems = () => {
+  document.querySelector('.gems-display').innerHTML = formatNumber(player.gems)
+}
 const updatePlayerExperience = () => {
   document.querySelector('.experience').value = player.exp
   document.querySelector('.experience').max = player.nextLevel
+  document.querySelectorAll('.exp-display').forEach(el => el.textContent = `${player.exp} / ${player.nextLevel} XP`)
 }
 
 const updatePlayerLevel = () => {
-  document.querySelector('.level').textContent = `Lvl. ${player.level}`
+  levelDisplay.forEach(el => el.textContent = player.level)
 }
 
 const updateWaveStatus = () => {
-  document.querySelector('.current-wave').textContent = `Wave ${player.wave}`
-  document.querySelector('.enemies-left').textContent = `${player.remainingEnemies} left`
+  document.querySelectorAll('.current-wave').forEach(el => el.textContent = player.wave)
+  document.querySelectorAll('.enemies-left').forEach(el => el.textContent = player.remainingEnemies)
 }
 
 const updateJackpot = () => {
@@ -224,17 +227,34 @@ document.querySelectorAll('[data-link]').forEach(link => {
     e.target.classList.add('active')
   })
 })
-
-const resetRoutes = () => {
+document.querySelectorAll('[data-tab]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    openPanel(e.target)
+    e.target.classList.add('active')
+  })
+})
+const resetPages = () => {
   let pages = [...document.querySelectorAll('[data-page]')]
   let links = [...document.querySelectorAll('[data-link]')]
   pages.forEach(page => page.classList.remove('active'))
   links.forEach(link => link.classList.remove('active'))
 }
-
+const resetPanels = () => {
+  let panels = [...document.querySelectorAll('[data-panel]')]
+  let tabs = [...document.querySelectorAll('[data-tab]')]
+  panels.forEach(panel => panel.classList.remove('active'))
+  tabs.forEach(tab => tab.classList.remove('active'))
+}
 const openPage = (target) => {
-  resetRoutes()
+  resetPages()
   let pages = [...document.querySelectorAll('[data-page]')]
-  let page = pages.find(page => page.dataset.page === target.dataset.link)
+  let page = pages.find(p => p.dataset.page === target.dataset.link)
   page.classList.add('active')
+}
+
+const openPanel = (target) => {
+  resetPanels()
+  let panels = [...document.querySelectorAll('[data-panel]')]
+  let panel = panels.find(p => p.dataset.panel === target.dataset.tab)
+  panel.classList.add('active')
 }
