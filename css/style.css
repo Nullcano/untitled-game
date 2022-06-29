@@ -24,7 +24,7 @@ svg {
   margin: 0;
   width: 100vw;
   height: 100vh;
-  font-family: "Oxygen", sans-serif;
+  font-family: 'Encode Sans Condensed', sans-serif;
   font-weight: 400;
   font-size: 16px;
   color: var(--lightest);
@@ -92,20 +92,19 @@ svg {
 
 .nav-container {
   position: relative;
-  margin: 1rem 2rem;
+  margin: 0 2rem;
   display: flex;
   flex-direction: row;
   justify-content: start;
   align-items: center;
-  gap: 1rem;
 }
 
 nav .link {
   position: relative;
   bottom: -2px;
-  padding: .5rem .75rem;
+  margin: 0 .5rem;
+  padding: .5rem;
   display: flex;
-  text-transform: uppercase;
   border-bottom: 2px solid transparent;
   transition: all .2s ease-in-out;
 }
