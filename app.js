@@ -1,10 +1,10 @@
-import { rooms } from './lib/rooms/index.js'
+import { randomItem, randomItems, randomInteger, formatNumber } from './lib/utils.js'
 import { data } from './data.js'
-import { items } from './lib/items.js'
+import { createItem } from './lib/items.js'
 import { animals } from './lib/farm.js'
 import { normalEnemies, eliteEnemies, bossEnemies } from './lib/enemies.js'
 
-const usernameDisplay = document.querySelector('.username')
+const usernameDisplay = document.querySelectorAll('.username')
 const levelDisplay = document.querySelector('.level')
 const enemyKills = document.querySelector('.enemies-left')
 const activeDamageDisplay = document.querySelector('.active-damage')
@@ -15,11 +15,10 @@ const enemyContainer = document.querySelector('.enemy-container')
 
 let player = data.player
 let currentWave = data.currentWave
+let items = data.items
+let inventory = data.inventory
+let vault = data.vault
 let currentEnemy, tradeActive
-
-const randomItem = (arr) => arr[(Math.random() * arr.length) | 0]
-const randomItems = (arr, count) => arr.concat().reduce((p, _, __, arr) => (p[0] < count ? [p[0] + 1, p[1].concat(arr.splice((Math.random() * arr.length) | 0, 1))] : p), [0, []])[1]
-const randomInteger = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
 
 let activeAttackInterval, bossRequirement, eliteRequirement, enemyAttackPlayer, enemyTarget, magicAttackEnemy
 
@@ -55,7 +54,7 @@ const stopActiveAttack = () => {
 const startDungeon = () => {
   if (player.new) {
     player.new = false
-    usernameDisplay.textContent = player.name
+    usernameDisplay.forEach(username => username.textContent = player.name)
     updateEnemyRequirements()
     checkWave()
     newEnemy()
@@ -85,6 +84,7 @@ const checkWave = () => {
 }
 
 const renderTrader = () => {
+  let items = [createItem, createItem, createItem]
   document.querySelector('.shop').innerHTML = ''
   const trades = randomItems(items, 3)
   trades.forEach(trade => {
@@ -106,10 +106,23 @@ const buyItem = (target) => {
   const item = data.items.find(item => item.id == target.dataset.id)
   if (player.gold >= item.price) {
     player.gold -= item.price
-    player.inventory.push(item)
+    inventory.push(item)
     updateGold()
     updateInventory()
   }
+}
+
+const updateInventory = () => {
+  document.querySelector('[data-tab="inventory"]').textContent = `Inventory [${inventory.length} / ${player.inventoryMax}]`
+  document.querySelector('.inventory-items').innerHTML = ''
+  inventory.forEach(item => {
+    document.querySelector('.inventory-items').innerHTML += `
+      <div class="item-card ${item.rarity}">
+        <span class="item-name">${item.rarity} ${item.name}</span>
+        <span class="item-price">${formatNumber(item.value)}</span>
+      </div>
+    `
+  })
 }
 
 const attackEnemy = () => {
@@ -158,37 +171,8 @@ const checkLevel = () => {
   }
 }
 
-const formatCoins = (money) => {
-  let copper = Math.floor(money % 100)
-  let silver = Math.floor(money / 100) % 100
-  let gold = Math.floor(money / 10000)
-  return `
-    <span class="coins">
-      <span class="coin gold">⬤</span> ${formatNumber(gold)}
-      <span class="coin silver">⬤</span> ${silver}
-      <span class="coin copper">⬤</span> ${copper}
-    </span>
-  `
-}
-
-const formatNumber = (number) => {
-  let num = number
-  let suffix = ''
-  if (num >= 1000000000) {
-    num = num / 1000000000
-    suffix = 'B'
-  } else if (num >= 1000000) {
-    num = num / 1000000
-    suffix = 'M'
-  } else if (num >= 10000) {
-    num = num / 1000
-    suffix = 'K'
-  }
-  return `${Math.floor(num)}${suffix}`
-}
-
 const updatePlayerCoins = () => {
-  document.querySelector('.current-coins').innerHTML = formatCoins(player.coins)
+  document.querySelector('.coins-display').innerHTML = formatNumber(player.coins)
 }
 
 const updatePlayerExperience = () => {
@@ -206,66 +190,32 @@ const updateWaveStatus = () => {
 }
 
 const updateJackpot = () => {
-  document.querySelector('.jackpot').innerHTML = ``
-  animals.forEach(animal => {
-    document.querySelector('.jackpot').innerHTML += `
-      <div class="animal" data-id="${animal.id}">
-        <div class="animal-sprite" style="background-image: url('./images/animals/${animal.id}.png')"></div>
-        <div class="animal-name">${animal.name}</div>
-        <div class="description">Produces ${animal.level} ${animal.item} every 5 seconds</div>
-        <div class="animal-price">${formatCoins(animal.price)}</div>
+
+}
+
+document.querySelector('#btn').addEventListener('click', () => {
+  document.querySelector('.overlay').innerHTML = ''
+  inventory.push(createItem(true))
+  inventory.forEach(item => {
+    document.querySelector('.overlay').innerHTML += `
+      <div class="item-card ${item.rarity}">
+        <span class="item-name">${item.rarity} ${item.name}</span>
+        <span class="item-price">${formatNumber(item.value)}</span>
       </div>
     `
   })
-  document.querySelectorAll('.animal').forEach(animal => {
-    animal.addEventListener('click', (e) => {
-      buyAnimal(e.target)
-    })
-  })
-}
+  updateInventory()
+})
 
-const initCrate = () => {
-  let item
-  document.querySelector('#btn').addEventListener('click', () => {
-    render()
-  })
-
-  let common = items.find(item => item.rarity === 'Common')
-  let rare = items.find(item => item.rarity === 'Rare')
-  let epic = items.find(item => item.rarity === 'Epic')
-  let legendary = items.find(item => item.rarity === 'Legendary')
-
-  function render() {
-    for (let i = 0; i < 60; i++) {
-      var num = randomInteger(1,100)
-      if (num == 1) {
-        item = legendary
-      } else if (num >= 2 && num <= 16) {
-        item = epic
-      } else if (num >= 17 && num <= 49) {
-        item = rare
-      } else if (num >= 50 && num <= 100) {
-        item = common
-      }
-    }
-    document.querySelector('.overlay').innerHTML = `
-      <div class="swiper-slide">
-        <span class='${item.rarity}'>${item.name}</span>
-      </div>
-    `
-    console.log(item)
-  }
-}
-
-(() => {
+window.onload = () => {
   startDungeon()
+  updateInventory()
   updatePlayerCoins()
   updatePlayerExperience()
   updatePlayerLevel()
   renderTrader()
-  initCrate()
   updateJackpot()
-})()
+}
 
 // panels
 document.querySelectorAll('[data-link]').forEach(link => {

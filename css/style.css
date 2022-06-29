@@ -7,12 +7,12 @@
 }
 
 :root {
-  --darkest: hsl(0, 0%, 6%);
-  --darker: hsl(0, 0%, 9%);
-  --dark: hsl(0, 0%, 12%);
-  --light: hsl(0, 0%, 50%);
-  --lighter: hsl(0, 0%, 60%);
-  --lightest: hsl(0, 0%, 80%);
+  --darkest: hsl(250, 10%, 8%);
+  --darker: hsl(250, 10%, 12%);
+  --dark: hsl(250, 10%, 16%);
+  --light: hsl(250, 10%, 50%);
+  --lighter: hsl(250, 10%, 70%);
+  --lightest: hsl(250, 10%, 90%);
 }
 
 svg {
@@ -25,32 +25,64 @@ svg {
   width: 100vw;
   height: 100vh;
   font-family: "Oxygen", sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 16px;
-  line-height: 1.25;
-  color: var(--lighter);
+  color: var(--lightest);
   background: var(--darkest);
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto auto 1fr;
   grid-column-gap: 0px;
   grid-row-gap: 0px; 
-  image-rendering: crisp-edges;
-  image-rendering: pixelated;
   overflow: hidden;
 }
 
 .header-container {
+  margin: 1rem;
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.header-container .logo {
-  margin-left: 1rem;
-  width: 90px;
-  height: 48px;
+.play-button {
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.play-button .icon {
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+  display: grid;
+  place-content: center;
+}
+.play-button .icon:before {
+  content: "";
+  position: absolute;
+  top: .5rem;
+  left: .5rem;
+  width: calc(2rem - 2px);
+  height: calc(2rem - 2px);
+  border: 2px solid var(--lightest);
+  background: var(--darkest);
+  transform: rotate(45deg);
+}
+.play-button .icon svg {
+  position: relative;
+  width: 1.25rem;
+}
+.play-button .text {
+  position: relative;
+  left: -1.25rem;
+  padding: .25rem 2rem;
+  border: 2px solid var(--lightest);
+  background: var(--darkest);
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  z-index: -1;
 }
 
 .nav-container {
@@ -65,15 +97,16 @@ svg {
 
 nav .link {
   position: relative;
-  padding: .25rem .75rem;
+  bottom: -2px;
+  padding: .5rem .75rem;
   display: flex;
-  border-radius: 999px;
-  background: var(--darker);
+  text-transform: uppercase;
+  border-bottom: 2px solid transparent;
   transition: all .2s ease-in-out;
 }
 
 nav .link.active, nav .link:hover {
-  background: var(--dark);
+  border-bottom: 2px solid var(--light);
 }
 
 
@@ -91,28 +124,31 @@ nav .link.active, nav .link:hover {
 }
 
 .level-display {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: .25rem;
   text-transform: uppercase;
   font-size: .8rem;
 }
+.level-display .level {
+  position: absolute;
+}
 .experience {
   -webkit-appearance: none;
   margin: 0;
   height: .5rem;
   border-radius: 999px;
-  background: hsl(255, 25%, 4%);
-  border: 1px solid goldenrod;
+  background: var(--darker);
+  border: 1px solid var(--light);
 }
 .experience::-moz-progress-bar {
-  background-color: goldenrod;
+  background-color: var(--light);
 }
-
 .profile-card {
   margin: .5rem 1rem;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: auto 1fr;
   grid-template-rows: 1fr;
   gap: 1rem;
   align-items: center;
@@ -121,11 +157,6 @@ nav .link.active, nav .link:hover {
   display: flex;
   flex-direction: column;
   gap: .5rem;
-}
-.username {
-  position: relative;
-  margin: 0 .5rem;
-  color: var(--lightest);
 }
 .portrait {
   position: relative;
@@ -136,20 +167,19 @@ nav .link.active, nav .link:hover {
   background-size: cover;
   border-radius: 50%;
 }
-
-.current-coins {
-  position: relative;
-  padding: .25rem .75rem;
-  display: grid;
-  place-content: center;
-  background: var(--darker);
-  border-radius: 999px;
+.currencies {
+  display: flex;
+  gap: 1rem;
 }
-.coins {
+.coins, .gems {
   display: flex;
   align-items: center;
+  gap: .25rem;
 }
-
+.currencies svg {
+  width: 1.25rem;
+  fill: currentColor;
+}
 .stats-col {
   margin: 2rem;
   display: flex;
@@ -182,29 +212,8 @@ nav .link.active, nav .link:hover {
   background-size: contain;
 }
 
-.attack-icon {
+.power-icon {
   background-image: url('../images/hud/attack.gif');
-}
-.magic-icon {
-  background-image: url('../images/hud/magic.gif');
-}
-.lifesteal-icon {
-  background-image: url('../images/hud/lifesteal.gif');
-}
-.critical-icon {
-  background-image: url('../images/hud/critical.gif');
-}
-.flame-icon {
-  background-image: url('../images/hud/flame.gif');
-}
-.chance-icon {
-  background-image: url('../images/hud/chance.gif');
-}
-.fortune-icon {
-  background-image: url('../images/hud/fortune.gif');
-}
-.wisdom-icon {
-  background-image: url('../images/hud/wisdom.gif');
 }
 
 .stat .value {
@@ -218,7 +227,6 @@ nav .link.active, nav .link:hover {
   margin-left: .5rem;
   margin-right: .25rem;
 }
-
 .coin.copper {
   color: #ff915e;
 }
@@ -229,94 +237,66 @@ nav .link.active, nav .link:hover {
   color: #ffbb00;
 }
 
-.panel {
+.page {
   display: none;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr;
   transition: all .5s ease-in-out;
-  background: hsl(220, 7%, 6%);
   overflow: hidden;
   z-index: 1;
 }
 
-.scene {
-  position: relative;
-  padding-bottom: 55%;
-  width: 100%;
-  height: 0;
-  background: rgba(0, 0, 0, 0.5);
-  overflow: hidden;
-}
-
-.panel.active {
+.page.active {
   display: grid;
 }
 
-.panel .title {
+
+.title-container {
   padding: 1rem 2rem;
-  font-family: 'Staatliches', sans-serif;
-  font-size: 2rem;
   display: flex;
   align-items: center;
 }
 
-.rooms-list, .barn {
-  margin: 1rem;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto;
-  gap: 1rem;
-}
-
-.room-card {
-  padding: 2rem;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  font-size: 1.25rem;
-  background: hsl(220, 7%, 10%);
-  border-radius: 1rem;
-  border: 1px solid hsl(220, 7%, 14%);
-  cursor: pointer;
-}
-
-.room-card * {
-  pointer-events: none;
-}
-
-.room-icon {
-  width: 3rem;
-  height: 3rem;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  mix-blend-mode: screen;
-  opacity: .25;
-  transition: all .2s ease-in-out;
-}
-.room-card:hover>.room-icon {
-  opacity: .5;
-}
-
-.animal {
-  padding: 2rem;
-  background: hsl(220, 7%, 10%);
-  border: 1px solid hsl(220, 7%, 14%);
-  border-radius: 1.5rem;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: .5rem;
-}
-.animal-name {
-  font-weight: 600;
+.title-container .title {
+  font-size: 1.5rem;
   text-transform: uppercase;
 }
-.animal .description {
-  margin-top: .5rem;
+
+.title-container nav {
+  margin-left: 2rem;
+  padding-left: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-left: 1px solid var(--darker);
+}
+
+.game-card-grid {
+  margin: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-rows: 1fr;
+  gap: 1rem;
+  align-items: center;
+  justify-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.game-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr;
+  gap: 1rem;
+  align-items: center;
+  justify-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 1rem;
+  background-color: var(--darker);
+  cursor: pointer;
+  transition: all .2s ease-in-out;
 }
 
 .dungeon-info {
@@ -481,58 +461,39 @@ nav .link.active, nav .link:hover {
   left: 400px;
   transition: .3s ease-in-out;
 }
-.crate #container{
-  width:600px;
-  height:200px;
-  border:1px solid black;
-  margin:20px auto;
-  overflow: hidden;
-}
-.crate .slider-wrapper{
-  width:400000px;
-  height:200px;
-  background: black;
-  display:inline-block;
-  position: relative;
-  right:0px;
-}
-.crate .swiper-slide{
-  width:200px;
-  height:80%;
-  margin-top:20px;
-  display:inline-block;
-  margin-left:20px;
-  overflow: hidden;
-  background:white;
-}
-.crate .middle{
-  width: 2px;
-  height: 200px;
-  background: rgb(155, 96, 2);
-  position: absolute;
-  top: 20px;
-  margin-left: 300px;
-  box-shadow: 0px 0px 20px 2px  black;
-}
-.crate span{
-  width: 300px;
-  height: 3rem;
-  color:white;
-  display:grid;
-  place-content: center;
-  margin-left:-50px;
-  color: #000;
-}
 .crate .overlay {
-  width:100%;
-  height:200px;
-  background: black;
-  display:block;
+  margin: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-rows: auto;
+  gap: 1rem;
 }
-.crate .layout{
-  width:25%;
-  height:200px;
-  margin:0 auto
+
+.item-card {
+  position: relative;
+  min-height: 6rem;
+  background: var(--dark);
+  border-radius: 1rem;
+}
+
+.item-name {
+  position: relative;
+  top: .75rem;
+  left: .5rem;
+  font-family: 'Staatliches', sans-serif;
+  padding: .25rem 1rem;
+  border-radius: 1rem;
+  background: rgba(0,0,0,.5);
+}
+
+.item-price {
+  position: absolute;
+  bottom: .25rem;
+  right: .25rem;
+  padding: .25rem .5rem;
+  font-size: .8rem;
+  border-radius: 1rem;
+  background: rgba(0,0,0,.5);
 }
 
 .Legendary {

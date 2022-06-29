@@ -1,0 +1,14 @@
+
+Hope you enjoy your new logo, here are the people that
+made your beautiful logo happen :)
+font name: SpaceText-Medium
+font link: https://github.com/floriankarsten/space-text
+font author: Florian Karsten
+font author site: http://floriankarsten.com/
+
+
+icon designer: lieuchien
+icon designer link: /lieuchien
+        
+{"bg":"#4C1045","icon":"#CF9EC3","font":"#CF9EC3","slogan":"#e3b2d7"}
+      
