@@ -7,9 +7,6 @@ import { normalEnemies, eliteEnemies, bossEnemies } from './lib/enemies.js'
 const usernameDisplay = document.querySelectorAll('.username')
 const levelDisplay = document.querySelectorAll('.level-display')
 const enemyKills = document.querySelector('.enemies-left')
-const activeDamageDisplay = document.querySelector('.active-damage')
-const passiveDamageDisplay = document.querySelector('.passive-damage')
-const auraDamageDisplay = document.querySelector('.aura-damage')
 
 const enemyContainer = document.querySelector('.enemy-container')
 
@@ -130,7 +127,7 @@ const attackEnemy = () => {
     currentEnemy.health = 0
     enemyKilled()
   } else {
-    currentEnemy.health -= (player.attack / 2)
+    currentEnemy.health -= (player.power / 2)
     updateEnemy()
   }
 }
@@ -162,12 +159,7 @@ const checkLevel = () => {
     player.exp = 0
     updatePlayerExperience()
     player.nextLevel += Math.round(player.nextLevel / 2)
-    player.attack += Math.round(player.attack / 2)
-    player.magic += Math.round(player.magic / 2)
-    player.maxHealth += Math.round(player.maxHealth / 2)
-    updatePlayerStats()
-    player.health = player.maxHealth
-    updatePlayerHealth()
+    player.power += Math.round(player.power / 2)
   }
 }
 

@@ -6,7 +6,7 @@ export const data = {
     wave: 1,
     health: 100,
     maxHealth: 100,
-    level: 999,
+    level: 1,
     exp: 0,
     nextLevel: 100,
     coins: 0,
