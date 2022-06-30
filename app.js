@@ -22,10 +22,11 @@ let activeAttackInterval, bossRequirement, eliteRequirement, enemyAttackPlayer, 
 const updateEnemy = () => {
   enemyContainer.innerHTML = `
     <div class="enemy ${currentEnemy.type}" data-id="${currentEnemy.id}">
-      <div class="enemy-name heading"><span class="enemy-type">${currentEnemy.type}</span> ${currentEnemy.name}</div>
+      <div class="enemy-type">${currentEnemy.type}</div>
+      <div class="enemy-name heading">${currentEnemy.name}</div>
       <progress class="enemy-healthbar" value="${currentEnemy.health}" max="${currentEnemy.maxHealth}"></progress>
       <div class="enemy-health">${Math.round(currentEnemy.health)}/${currentEnemy.maxHealth}</div>
-      <div class="enemy-sprite" style="background-image: url('./images/enemies/${currentEnemy.id}.png')"></div>
+      <div class="enemy-id">${currentEnemy.id}</div>
     </div>
   `
   enemyTarget = document.querySelector('.enemy').parentElement
@@ -63,10 +64,13 @@ const startDungeon = () => {
 const newEnemy = () => {
   if (player.remainingEnemies <= bossRequirement) {
     currentEnemy = randomItem(bossEnemies)
+    currentEnemy.type = 'boss'
   } else if (player.remainingEnemies <= eliteRequirement) {
     currentEnemy = randomItem(eliteEnemies)
+    currentEnemy.type = 'elite'
   } else {
     currentEnemy = randomItem(normalEnemies)
+    currentEnemy.type = 'normal'
   }
   updateEnemy()
 }
@@ -81,7 +85,7 @@ const checkWave = () => {
 }
 
 const renderTrader = () => {
-  let items = [createItem, createItem, createItem]
+  let items = [createItem(), createItem(), createItem()]
   document.querySelector('.shop').innerHTML = ''
   const trades = randomItems(items, 3)
   trades.forEach(trade => {
@@ -110,13 +114,16 @@ const buyItem = (target) => {
 }
 
 const updateInventory = () => {
-  document.querySelector('[data-tab="inventory"]').textContent = `Inventory [${inventory.length} / ${player.inventoryMax}]`
-  document.querySelector('.inventory-items').innerHTML = ''
+  document.querySelector('[data-sublink="inventory"]').textContent = `Inventory [${inventory.length} / ${player.inventoryMax}]`
+  document.querySelector('[data-panel="weapons"]').innerHTML = ''
   inventory.forEach(item => {
-    document.querySelector('.inventory-items').innerHTML += `
+    document.querySelector('[data-panel="weapons"]').innerHTML += `
       <div class="item-card ${item.rarity}">
-        <span class="item-name">${item.rarity} ${item.name}</span>
-        <span class="item-price">${formatNumber(item.value)}</span>
+        <img src="./images/items/${item.name}.svg" alt="${item.name}">
+        <div class="tooltip">
+          <span class="item-name">${item.rarity} ${item.name}</span>
+          <span class="item-price">${formatNumber(item.value)}</span>
+        </div>
       </div>
     `
   })
@@ -194,8 +201,11 @@ document.querySelector('#btn').addEventListener('click', () => {
   inventory.forEach(item => {
     document.querySelector('.overlay').innerHTML += `
       <div class="item-card ${item.rarity}">
-        <span class="item-name">${item.rarity} ${item.name}</span>
-        <span class="item-price">${formatNumber(item.value)}</span>
+        <img src="./images/items/${item.name}.svg" alt="${item.name}">
+        <div class="tooltip">
+          <span class="item-name">${item.rarity} ${item.name}</span>
+          <span class="item-price">${formatNumber(item.value)}</span>
+        </div>
       </div>
     `
   })
@@ -206,16 +216,23 @@ window.onload = () => {
   startDungeon()
   updateInventory()
   updatePlayerCoins()
+  updatePlayerGems()
   updatePlayerExperience()
   updatePlayerLevel()
   renderTrader()
   updateJackpot()
 }
 
-// panels
+// router
 document.querySelectorAll('[data-link]').forEach(link => {
   link.addEventListener('click', (e) => {
     openPage(e.target)
+    e.target.classList.add('active')
+  })
+})
+document.querySelectorAll('[data-sublink]').forEach(sublink => {
+  sublink.addEventListener('click', (e) => {
+    openSubPage(e.target)
     e.target.classList.add('active')
   })
 })
@@ -225,17 +242,12 @@ document.querySelectorAll('[data-tab]').forEach(link => {
     e.target.classList.add('active')
   })
 })
+
 const resetPages = () => {
   let pages = [...document.querySelectorAll('[data-page]')]
   let links = [...document.querySelectorAll('[data-link]')]
   pages.forEach(page => page.classList.remove('active'))
   links.forEach(link => link.classList.remove('active'))
-}
-const resetPanels = () => {
-  let panels = [...document.querySelectorAll('[data-panel]')]
-  let tabs = [...document.querySelectorAll('[data-tab]')]
-  panels.forEach(panel => panel.classList.remove('active'))
-  tabs.forEach(tab => tab.classList.remove('active'))
 }
 const openPage = (target) => {
   resetPages()
@@ -244,6 +256,25 @@ const openPage = (target) => {
   page.classList.add('active')
 }
 
+const resetSubPages = () => {
+  let subpages = [...document.querySelectorAll('[data-subpage]')]
+  let sublinks = [...document.querySelectorAll('[data-sublink]')]
+  subpages.forEach(subpage => subpage.classList.remove('active'))
+  sublinks.forEach(sublink => sublink.classList.remove('active'))
+}
+const openSubPage = (target) => {
+  resetSubPages()
+  let subpages = [...document.querySelectorAll('[data-subpage]')]
+  let subpage = subpages.find(p => p.dataset.subpage === target.dataset.sublink)
+  subpage.classList.add('active')
+}
+
+const resetPanels = () => {
+  let panels = [...document.querySelectorAll('[data-panel]')]
+  let tabs = [...document.querySelectorAll('[data-tab]')]
+  panels.forEach(panel => panel.classList.remove('active'))
+  tabs.forEach(tab => tab.classList.remove('active'))
+}
 const openPanel = (target) => {
   resetPanels()
   let panels = [...document.querySelectorAll('[data-panel]')]

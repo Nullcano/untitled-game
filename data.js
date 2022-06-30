@@ -10,6 +10,7 @@ export const data = {
     exp: 0,
     nextLevel: 100,
     coins: 0,
+    gems: 0,
     power: 1,
     inventoryMax: 9,
     vaultMax: 3,

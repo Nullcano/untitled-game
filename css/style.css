@@ -298,7 +298,6 @@ nav .link:hover {
   display: grid;
 }
 
-
 .title-container {
   padding: 1rem 2rem;
   display: flex;
@@ -317,6 +316,43 @@ nav .link:hover {
   align-items: center;
   gap: 1rem;
   border-left: 1px solid var(--darker);
+}
+
+.subpage {
+  display: none;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+.subpage.active {
+  display: grid;
+}
+
+.panel {
+  display: none;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+.panel.active {
+  display: grid;
+}
+
+.panel aside {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+[data-subpage="inventory"], [data-subpage="vault"] {
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: 1fr;
+  gap: 1rem;
+}
+
+.inventory-items {
+  grid-template-columns: repeat(auto-fit, 4rem);
+  grid-template-rows: repeat(auto-fit, 4rem);
+  gap: 1rem;
 }
 
 .game-card-grid {
@@ -592,88 +628,59 @@ nav .link:hover {
 
 .item-card {
   position: relative;
-  min-height: 6rem;
+  width: 4rem;
+  height: 4rem;
   background: var(--dark);
   border-radius: 1rem;
+  border: 2px solid;
+}
+
+.item-card>.tooltip {
+  position: absolute;
+  top: 0;
+  left: 4.5rem;
+  padding: 1rem;
+  width: 10rem;
+  height: 15rem;
+  background: var(--darker);
+  border: 1px solid var(--dark);
+  border-radius: .5rem;
+  display: none;
+  flex-direction: column;
+  z-index: 1;
+}
+.item-card:hover>.tooltip {
+  display: flex;
+}
+
+.item-card img {
+  margin: .25rem;
+  width: 3.5rem;
 }
 
 .item-name {
-  position: relative;
-  top: .75rem;
-  left: .5rem;
-  font-family: 'Staatliches', sans-serif;
   padding: .25rem 1rem;
-  border-radius: 1rem;
-  background: rgba(0, 0, 0, .5);
 }
 
 .item-price {
-  position: absolute;
-  bottom: .25rem;
-  right: .25rem;
   padding: .25rem .5rem;
   font-size: .8rem;
-  border-radius: 1rem;
-  background: rgba(0, 0, 0, .5);
 }
 
 .Legendary {
-  background: hsl(50, 75%, 65%);
+  border-color: hsl(50, 75%, 65%);
 }
 
 .Epic {
-  background: hsl(330, 40%, 50%)
+  border-color: hsl(330, 40%, 50%)
 }
 
 .Rare {
-  background: hsl(240, 35%, 50%)
+  border-color: hsl(240, 35%, 50%)
 }
 
 .Common {
-  background: hsl(240, 15%, 70%);
-}
-
-.tabs {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  background: hsl(256, 8%, 12%)
-}
-
-.tab {
-  padding: .5rem;
-  color: hsl(255, 15%, 80%);
-  cursor: pointer;
-}
-
-.tab * {
-  pointer-events: none;
-}
-
-.tab svg {
-  width: 2rem;
-  height: 2rem;
-  fill: hsl(255, 15%, 90%);
-}
-
-.footer-container {
-  position: fixed;
-  bottom: 1rem;
-  left: calc(4vw - 1px);
-  width: 92vw;
-  height: 4rem;
-  display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: auto;
-  place-items: center;
-  background: hsl(220, 7%, 10%);
-  border-radius: 1.5rem;
-  border: 1px solid hsl(220, 7%, 14%);
-  z-index: 9;
+  border-color: hsl(240, 15%, 70%);
 }
 
 .nav-item svg {

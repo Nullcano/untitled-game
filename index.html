@@ -160,27 +160,33 @@
       <div class="title-container">
         <div class="title">Collection</div>
         <nav>
-          <div class="link active" data-tab="inventory">Inventory 0 / 9</div>
-          <div class="link" data-tab="vault">Vault 0 / 3</div>
+          <div class="link active" data-sublink="inventory">Inventory 0 / 9</div>
+          <div class="link" data-sublink="vault">Vault 0 / 3</div>
         </nav>
       </div>
-      <div class="panel active" data-panel="inventory">
+      <div class="subpage active" data-subpage="inventory">
         <aside class="nav inventory-nav">
           <div class="link active" data-tab="weapons">Weapons</div>
           <div class="link" data-tab="armor">Armor</div>
           <div class="link" data-tab="accessories">Accessories</div>
           <div class="link" data-tab="consumables">Consumables</div>
         </aside>
-        <div class="inventory-items"></div>
+        <div class="panel inventory-items active" data-panel="weapons"></div>
+        <div class="panel inventory-items" data-panel="armor"></div>
+        <div class="panel inventory-items" data-panel="accessories"></div>
+        <div class="panel inventory-items" data-panel="consumables"></div>
       </div>
-      <div class="panel" data-panel="vault">
+      <div class="subpage" data-subpage="vault">
         <aside class="nav vault-nav">
           <div class="link active" data-tab="weapons">Weapons</div>
           <div class="link" data-tab="armor">Armor</div>
           <div class="link" data-tab="accessories">Accessories</div>
           <div class="link" data-tab="consumables">Consumables</div>
         </aside>
-        <div class="vault-items"></div>
+        <div class="panel vault-items active" data-panel="weapons"></div>
+        <div class="panel vault-items" data-panel="armor"></div>
+        <div class="panel vault-items" data-panel="accessories"></div>
+        <div class="panel vault-items" data-panel="consumables"></div>
       </div>
     </div>
     <div class="page" data-page="dungeon">
