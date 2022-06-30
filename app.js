@@ -28,7 +28,7 @@ const updateEnemy = () => {
       <div class="enemy-sprite" style="background-image: url('./images/enemies/${currentEnemy.id}.png')"></div>
     </div>
   `
-  enemyTarget = document.querySelector('.enemy')
+  enemyTarget = document.querySelector('.enemy').parentElement
   enemyTarget.addEventListener('mousedown', startActiveAttack)
   enemyTarget.addEventListener('touchstart', startActiveAttack)
   enemyTarget.addEventListener('mouseup', stopActiveAttack)
