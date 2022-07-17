@@ -1,8 +1,9 @@
-import { randomItem, randomItems, randomInteger, formatNumber } from './lib/utils.js'
-import { data } from './data.js'
+import { combat } from './lib/combat.js'
+import { enemies } from './lib/enemies.js'
+import { player } from './lib/player.js'
 import { createItem } from './lib/items.js'
-import { animals } from './lib/farm.js'
-import { normalEnemies, eliteEnemies, bossEnemies } from './lib/enemies.js'
+import { locations } from './lib/locations.js'
+import { randomItem, randomItems, randomInteger, formatNumber } from './lib/utils.js'
 
 const usernameDisplay = document.querySelectorAll('.username')
 const levelDisplay = document.querySelectorAll('.level-display')
@@ -10,23 +11,24 @@ const enemyKills = document.querySelector('.enemies-left')
 
 const enemyContainer = document.querySelector('.enemy-container')
 
-let player = data.player
-let currentWave = data.currentWave
-let items = data.items
-let inventory = data.inventory
-let vault = data.vault
-let currentEnemy, tradeActive
+let inventory = player.inventory
+let vault = player.vault
+let currentEnemy
 
 let activeAttackInterval, bossRequirement, eliteRequirement, enemyAttackPlayer, enemyTarget, magicAttackEnemy
 
 const updateEnemy = () => {
   enemyContainer.innerHTML = `
-    <div class="enemy ${currentEnemy.type}" data-id="${currentEnemy.id}">
-      <div class="enemy-type">${currentEnemy.type}</div>
-      <div class="enemy-name heading">${currentEnemy.name}</div>
+    <div class="enemy ${currentEnemy.type.toLowerCase()}" data-id="${currentEnemy.id}">
       <progress class="enemy-healthbar" value="${currentEnemy.health}" max="${currentEnemy.maxHealth}"></progress>
-      <div class="enemy-health">${Math.round(currentEnemy.health)}/${currentEnemy.maxHealth}</div>
-      <div class="enemy-id">${currentEnemy.id}</div>
+      <div class="enemy-info">
+        <div class="enemy-details">
+          <span class="enemy-type">${currentEnemy.type}</span> 
+          <span>${currentEnemy.race} ${currentEnemy.gender}</span>
+        </div>
+        <div class="enemy-name heading">${currentEnemy.name}</div>
+        <div class="enemy-health">${Math.round(currentEnemy.health)} / ${currentEnemy.maxHealth} HP</div>
+      </div>
     </div>
   `
   enemyTarget = document.querySelector('.enemy').parentElement
@@ -55,6 +57,7 @@ const startDungeon = () => {
     usernameDisplay.forEach(username => username.textContent = player.name)
     updateEnemyRequirements()
     checkWave()
+    updateLocation()
     newEnemy()
   } else {
     return
@@ -62,15 +65,15 @@ const startDungeon = () => {
 }
 
 const newEnemy = () => {
+  let bossEnemies = enemies.filter(enemy => enemy.type == 'Boss')
+  let eliteEnemies = enemies.filter(enemy => enemy.type == 'Elite')
+  let normalEnemies = enemies.filter(enemy => enemy.type == 'Normal')
   if (player.remainingEnemies <= bossRequirement) {
     currentEnemy = randomItem(bossEnemies)
-    currentEnemy.type = 'boss'
   } else if (player.remainingEnemies <= eliteRequirement) {
     currentEnemy = randomItem(eliteEnemies)
-    currentEnemy.type = 'elite'
   } else {
     currentEnemy = randomItem(normalEnemies)
-    currentEnemy.type = 'normal'
   }
   updateEnemy()
 }
@@ -78,21 +81,29 @@ const newEnemy = () => {
 const checkWave = () => {
   if (player.remainingEnemies == 0) {
     player.wave++
+    if (player.wave % 10 == 1) {
+      updateLocation()
+    }
     player.remainingEnemies = Math.ceil(player.wave * 2.5)
     updateEnemyRequirements()
   }
   updateWaveStatus()
 }
 
+const updateLocation = () => {
+  player.location = randomItem(locations)
+  document.querySelector('.location-name').textContent = player.location.name
+  document.querySelector('.location-description').textContent = player.location.description
+}
+
 const renderTrader = () => {
-  let items = [createItem(), createItem(), createItem()]
+  let currentDeals = [createItem(false), createItem(false), createItem(false)]
   document.querySelector('.shop').innerHTML = ''
-  const trades = randomItems(items, 3)
-  trades.forEach(trade => {
+  currentDeals.forEach(deal => {
     document.querySelector('.shop').innerHTML += `
-      <div class="item" data-id="${trade.id}">
-        <div class="item-name">${trade.name}</div>
-        <div class="item-sprite" style="background-image: url('./images/items/${trade.id}.png')"></div>
+      <div class="item" data-id="${deal.id}">
+        <div class="item-name">${deal.name}</div>
+        <div class="item-sprite" style="background-image: url('./images/items/${deal.id}.png')"></div>
       </div>
     `
   })
@@ -119,7 +130,7 @@ const updateInventory = () => {
   inventory.forEach(item => {
     document.querySelector('[data-panel="weapons"]').innerHTML += `
       <div class="item-card ${item.rarity}">
-        <img src="./images/items/${item.name}.svg" alt="${item.name}">
+        <img src="./images/items/${item.id}.png" alt="${item.name}">
         <div class="tooltip">
           <span class="item-name">${item.rarity} ${item.name}</span>
           <span class="item-price">${formatNumber(item.value)}</span>
@@ -156,7 +167,6 @@ const enemyKilled = () => {
 const updateEnemyRequirements = () => {
   bossRequirement = (10 / 100) * player.remainingEnemies
   eliteRequirement = (33 / 100) * player.remainingEnemies
-  console.log(bossRequirement, eliteRequirement)
 }
 
 const checkLevel = () => {
@@ -197,14 +207,15 @@ const updateJackpot = () => {
 
 document.querySelector('#btn').addEventListener('click', () => {
   document.querySelector('.overlay').innerHTML = ''
-  inventory.push(createItem(true))
+  inventory.push({...createItem(true)})
   inventory.forEach(item => {
     document.querySelector('.overlay').innerHTML += `
       <div class="item-card ${item.rarity}">
-        <img src="./images/items/${item.name}.svg" alt="${item.name}">
+        <img src="./images/items/${item.id}.png" alt="${item.name}">
         <div class="tooltip">
           <span class="item-name">${item.rarity} ${item.name}</span>
-          <span class="item-price">${formatNumber(item.value)}</span>
+          <span class="item-power">Power: ${item.power}</span>
+          <span class="item-price">Value: ${formatNumber(item.value)}</span>
         </div>
       </div>
     `
