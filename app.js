@@ -2,7 +2,7 @@ import { combat } from './lib/combat.js'
 import { enemies } from './lib/enemies.js'
 import { player } from './lib/player.js'
 import { createItem } from './lib/items.js'
-import { locations } from './lib/locations.js'
+import { locPre, locSuf, locDesc } from './lib/locations.js'
 import { randomItem, randomItems, randomInteger, formatNumber } from './lib/utils.js'
 
 const usernameDisplay = document.querySelectorAll('.username')
@@ -20,15 +20,15 @@ let activeAttackInterval, bossRequirement, eliteRequirement, enemyAttackPlayer, 
 const updateEnemy = () => {
   enemyContainer.innerHTML = `
     <div class="enemy ${currentEnemy.type.toLowerCase()}" data-id="${currentEnemy.id}">
-      <progress class="enemy-healthbar" value="${currentEnemy.health}" max="${currentEnemy.maxHealth}"></progress>
-      <div class="enemy-info">
-        <div class="enemy-details">
-          <span class="enemy-type">${currentEnemy.type}</span> 
-          <span>${currentEnemy.race} ${currentEnemy.gender}</span>
-        </div>
-        <div class="enemy-name heading">${currentEnemy.name}</div>
-        <div class="enemy-health">${Math.round(currentEnemy.health)} / ${currentEnemy.maxHealth} HP</div>
+      <div class="enemy-details heading">
+        <span class="enemy-type">${currentEnemy.type}</span>
+        <span class="enemy-name">${currentEnemy.name}</span>
       </div>
+      <div class="enemy-health">
+        <progress class="enemy-healthbar" value="${currentEnemy.health}" max="${currentEnemy.maxHealth}"></progress>
+        <div class="enemy-healthbar-label">${Math.round(currentEnemy.health)} / ${currentEnemy.maxHealth} HP</div>
+      </div>
+      <div class="enemy-sprite" style="background-image: url('./images/enemies/${currentEnemy.id}.gif')"></div>
     </div>
   `
   enemyTarget = document.querySelector('.enemy').parentElement
@@ -91,9 +91,9 @@ const checkWave = () => {
 }
 
 const updateLocation = () => {
-  player.location = randomItem(locations)
-  document.querySelector('.location-name').textContent = player.location.name
-  document.querySelector('.location-description').textContent = player.location.description
+  player.location = `The ${randomItem(locPre)} ${randomItem(locSuf)}`
+  document.querySelector('.location-name').textContent = player.location
+  document.querySelector('.location-description').textContent = `${randomItem(locDesc)}`
 }
 
 const renderTrader = () => {
@@ -157,7 +157,6 @@ const enemyKilled = () => {
   player.coins += currentEnemy.maxHealth
   updatePlayerCoins()
   currentEnemy.deaths++
-  currentEnemy.maxHealth = Math.floor(currentEnemy.maxHealth + (currentEnemy.deaths * 1.25))
   currentEnemy.health = currentEnemy.maxHealth
   player.remainingEnemies--
   checkWave()

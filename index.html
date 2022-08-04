@@ -124,7 +124,7 @@
             </div>
           </div>
           <div class="link game-card" data-link="lottery">
-            <div class="game-card-title">Larry's Loot Lottery</div>
+            <div class="game-card-title">Loot Lottery</div>
             <div class="game-card-body">
               <div class="game-card-info">
                 <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -227,7 +227,7 @@
       </div>
       <div class="page" data-page="dungeon">
         <div class="title-container">
-          <div class="title">Fight off Zombies</div>
+          <div class="title">Dungeon</div>
         </div>
         <div class="fight-container">
           <div class="location-info">
@@ -248,7 +248,7 @@
                   <span class="value current-wave">-</span>
                 </div>
                 <div class="detail">
-                  <span class="label">Zeds</span>
+                  <span class="label">Mobs</span>
                   <span class="value enemies-left">-</span>
                 </div>
               </div>
@@ -273,8 +273,12 @@
       <div class="page" data-page="lottery">
         <div class="title-container">
           <div class="title">Loot Lottery</div>
+          <p>Score: <span id="scoreSpan"></span></p>
         </div>
-        <div class="jackpot"></div>
+        <div class="game">
+          <div id="character"></div>
+          <div id="block"></div>
+        </div>
       </div>
       <div class="page" data-page="merchant">
         <div class="title-container">

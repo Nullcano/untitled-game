@@ -604,22 +604,9 @@ nav .link:hover {
   position: relative;
   width: 320px;
   height: 320px;
-  display: grid;
-  place-content: center;
-}
-
-.enemy-info {
-  width: 300px;
-  height: 300px;
-  text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 1rem;
-  user-select: none;
-  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
-  background-color: var(--darker);
 }
 
 .enemy * {
@@ -627,25 +614,49 @@ nav .link:hover {
   pointer-events: none;
 }
 
-.enemy-healthbar {
-  position: absolute;
-  -webkit-appearance: none;
-  width: 320px;
-  height: 320px;
-  background: var(--darkest);
-  overflow: hidden;
-  border: 0;
-  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+.enemy-details {
+  margin-bottom: .5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .enemy-type {
   padding: 0.2rem 0.4rem;
   border-radius: 999px;
-  background: hsl(255, 15%, 4%);
+  background: var(--darkest);
 }
 
 .enemy-name {
   font-size: 1.5rem;
+}
+
+.enemy-health {
+  position: relative;
+}
+
+.enemy-healthbar {
+  position: relative;
+  -webkit-appearance: none;
+  width: 320px;
+  height: 24px;
+  background: var(--darkest);
+  overflow: hidden;
+  border: 0;
+}
+
+.enemy-healthbar-label {
+  position: absolute;
+  top: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.enemy-sprite {
+  width: 320px;
+  height: 320px;
+  background-repeat: no-repeat;
+  background-position: bottom center;
 }
 
 .enemy.normal .enemy-type {
@@ -848,4 +859,42 @@ nav .link:hover {
   position: relative;
   width: 320px;
   height: 320px;
+}
+
+.game {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+#character {
+  width: 32px;
+  height: 64px;
+  background-color: red;
+  position: absolute;
+  bottom: 128px;
+  left: calc(50% - 16px);
+}
+.animate {
+  animation: jump .5s ease-in-out;
+}
+
+@keyframes jump {
+  0%{bottom: 128px;}
+  30%{bottom: 160px;}
+  70%{bottom: 160px;}
+  100%{bottom: 128px;}
+}
+
+#block{
+  background-color: blue;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  bottom: 128px;
+  right: -32px;
+  animation: block 2s infinite linear;
+}
+@keyframes block{
+  0%{right: -32px;}
+  100%{right: 100%}
 }
