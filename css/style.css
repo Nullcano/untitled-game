@@ -27,74 +27,7 @@ div {
   font-weight: 400;
   font-size: 16px;
   color: var(--lightest);
-  background-color: var(--darkest);
-  background: linear-gradient(
-      180deg,
-      hsla(260, 10%, 8%, 0) 20%,
-      hsla(260, 10%, 8%, 0.1) 20%,
-      hsla(260, 10%, 8%, 0.1) 40%,
-      hsla(260, 10%, 8%, 0.2) 40%,
-      hsla(260, 10%, 8%, 0.2) 60%,
-      hsla(260, 10%, 8%, 0.4) 60%,
-      hsla(260, 10%, 8%, 0.4) 80%,
-      hsla(260, 10%, 8%, 0.5) 80%
-    ),
-    linear-gradient(
-      45deg,
-      hsla(260, 10%, 8%, 0.3) 20%,
-      hsla(260, 10%, 8%, 0.4) 20%,
-      hsla(260, 10%, 8%, 0.4) 40%,
-      hsla(260, 10%, 8%, 0.5) 40%,
-      hsla(260, 10%, 8%, 0.5) 60%,
-      hsla(260, 10%, 8%, 0.6) 60%,
-      hsla(260, 10%, 8%, 0.6) 80%,
-      hsla(260, 10%, 8%, 0.7) 80%
-    ),
-    linear-gradient(
-      -45deg,
-      hsla(260, 10%, 8%, 0) 20%,
-      hsla(260, 10%, 8%, 0.1) 20%,
-      hsla(260, 10%, 8%, 0.1) 40%,
-      hsla(260, 10%, 8%, 0.2) 40%,
-      hsla(260, 10%, 8%, 0.2) 60%,
-      hsla(260, 10%, 8%, 0.4) 60%,
-      hsla(260, 10%, 8%, 0.4) 80%,
-      hsla(260, 10%, 8%, 0.6) 80%
-    ),
-    linear-gradient(
-      90deg,
-      hsla(260, 10%, 8%, 0) 20%,
-      hsla(260, 10%, 8%, 0.3) 20%,
-      hsla(260, 10%, 8%, 0.3) 40%,
-      hsla(260, 10%, 8%, 0.5) 40%,
-      hsla(260, 10%, 8%, 0.5) 60%,
-      hsla(260, 10%, 8%, 0.7) 60%,
-      hsla(260, 10%, 8%, 0.7) 80%,
-      hsla(260, 10%, 8%, 0.8) 80%
-    ),
-    linear-gradient(
-      -90deg,
-      hsla(260, 10%, 8%, 0) 20%,
-      hsla(260, 10%, 8%, 0.4) 20%,
-      hsla(260, 10%, 8%, 0.4) 40%,
-      hsla(260, 10%, 8%, 0.5) 40%,
-      hsla(260, 10%, 8%, 0.5) 60%,
-      hsla(260, 10%, 8%, 0.6) 60%,
-      hsla(260, 10%, 8%, 0.6) 80%,
-      hsla(260, 10%, 8%, 0.8) 80%
-    ),
-    linear-gradient(
-      180deg,
-      hsla(260, 10%, 8%, 0) 20%,
-      hsla(260, 10%, 8%, 0.4) 20%,
-      hsla(260, 10%, 8%, 0.4) 40%,
-      hsla(260, 10%, 8%, 0.6) 40%,
-      hsla(260, 10%, 8%, 0.6) 60%,
-      hsla(260, 10%, 8%, 0.8) 60%,
-      hsla(260, 10%, 8%, 0.8) 80%,
-      hsla(260, 10%, 8%, 0.9) 80%
-    );
-  background-size: 100% 100%;
+  background: hsl(256, 25%, 8%);
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr;
@@ -129,7 +62,7 @@ svg {
 }
 
 .header-container {
-  margin: 1rem;
+  padding: 1rem;
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -207,7 +140,7 @@ nav .link:hover {
 .main-container {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: auto 1fr;
   grid-template-rows: 1fr;
   overflow-y: auto;
   overflow-x: hidden;
@@ -217,171 +150,161 @@ nav .link:hover {
   cursor: pointer;
 }
 
-.level-display {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-}
-
-.level-display .level {
-  position: absolute;
-}
-
-.experience {
-  -webkit-appearance: none;
-  margin: 0;
-  width: 120px;
-  height: 0.25rem;
-  border-radius: 0;
-  background: var(--dark);
-  border: 0;
-}
-
-.experience::-moz-progress-bar {
-  background-color: var(--light);
-}
-
-.exp-display {
-  font-size: 0.8rem;
+.profile-card-provider {
+  position: fixed;
+  top: 4rem;
+  left: 0;
+  padding: 1rem;
+  width: 18rem;
+  height: 100vh;
+  overflow-y: auto;
 }
 
 .profile-card {
-  margin: 0 1rem;
-  width: 180px;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-template-rows: 1fr;
-  align-items: center;
-}
-
-.profile-card .details {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+}
+.profile-banner {
+  width: 100%;
+  height: 4rem;
+  background-color: hsl(256, 25%, 16%);
+  background-image: url('../images/banners/elemental.gif');
+  background-size: cover;
+  border-radius: .5rem;
+  image-rendering: pixelated;
+}
+.profile-title {
+  position: relative;
+  margin-top: -2rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+.profile-portrait-provider {
+  display: block;
+  width: 4rem;
+  height: 4rem;
+  background-color: hsl(256, 25%, 32%);
+  border-radius: .5rem;
+}
+.profile-player-provider {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+.player-name {
+  padding-inline-start: .5rem;
+  display: flex;
+  align-items: center;
+  background-color: hsla(256, 25%, 8%, .75);
+  border-radius: .5rem;
+}
+.profile-level-provider {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+.player-level {
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: hsl(256, 25%, 12%);
+  border-radius: .5rem;
 }
 
-.profile-card .level {
+.profile-experience {
   position: relative;
-  width: 3rem;
-  height: 3rem;
+  border-radius: .5rem;
+  overflow: hidden;
+}
+.experience {
+  -webkit-appearance: none;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background: hsl(265, 25%, 16%);
+  border: 0;
+}
+.experience::-moz-progress-bar {
+  background-color: var(--light);
+}
+.exp-display {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: .8rem;
+}
+
+.profile-gold-provider {
+  margin-block: 1rem;
+  padding: .5rem;
   display: grid;
   place-content: center;
+  background-color: hsl(256, 25%, 12%);
+  border-radius: .5rem;
 }
-
-.profile-card .level::before {
-  content: "";
-  position: absolute;
-  top: 0.5rem;
-  left: 0.5rem;
-  width: calc(2rem - 4px);
-  height: calc(2rem - 4px);
-  border: 1px solid var(--lightest);
-  background: var(--darkest);
-  transform: rotate(45deg);
-}
-
-.currencies {
-  min-width: 8rem;
+.player-gold {
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  gap: .5rem;
 }
-
-.coins,
-.gems {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.currencies svg {
-  width: 1rem;
-  fill: currentColor;
-}
-
-.stats-col {
-  margin: 2rem;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 2rem;
-}
-
-.stat {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: default;
-}
-
-.stat > .label {
-  position: absolute;
-  padding: 0.25rem;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  color: hsl(255, 15%, 60%);
-  background: hsl(260, 20%, 4%);
-  display: none;
-}
-
-.stat:focus-within > .label {
-  display: flex;
-}
-
-.stat > .icon {
-  width: 22px;
-  height: 22px;
-  background-size: contain;
-}
-
-.power-icon {
-  background-image: url("../images/hud/attack.gif");
-}
-
-.stat .value {
-  font-size: 1.25rem;
-}
-
-.coin:first-child {
-  margin-left: 0rem;
-}
-
 .coin {
-  margin-left: 0.5rem;
-  margin-right: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: .25rem;
 }
 
-.coin.copper {
-  color: #ff915e;
+.coin:before {
+  content: '';
+  display: inline-block;
+  width: 17px;
+  height: 17px;
 }
 
-.coin.silver {
-  color: #ccc;
+.copper:before {
+  background: url('../images/hud/copper.gif');
+}
+.silver:before {
+  background: url('../images/hud/silver.gif');
+}
+.gold:before {
+  background: url('../images/hud/gold.gif');
 }
 
-.coin.gold {
-  color: #ffbb00;
+.profile-currencies, .profile-stats {
+  margin-bottom: 1rem;
+  padding: .5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .5rem;
+  background-color: hsl(256, 25%, 12%);
+  border-radius: .5rem;
+}
+.kv {
+  padding: .5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  background-color: hsl(256, 25%, 8%);
+  border-radius: .5rem;
 }
 
 .page {
+  position: relative;
+  width: calc(100% - 1rem);
+  margin-left: 19rem;
   display: none;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr;
   transition: all 0.5s ease-in-out;
-  overflow: hidden;
+  overflow-y: auto;
   z-index: 1;
 }
 
 .page.active {
-  display: grid;
+  display: block;
 }
 
 .title-container {
-  padding: 1rem 2rem;
+  padding: 1rem 0;
   display: flex;
   align-items: center;
 }
@@ -439,7 +362,7 @@ nav .link:hover {
 }
 
 .game-card-grid {
-  margin: 2rem;
+  padding: 1rem;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 1fr;
@@ -448,8 +371,7 @@ nav .link:hover {
 
 .game-card {
   position: relative;
-  width: 100%;
-  max-height: 20rem;
+  height: 20rem;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr;
@@ -458,7 +380,6 @@ nav .link:hover {
   overflow: hidden;
   background-size: cover;
   background-position: center;
-  border: 1px solid var(--light);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
@@ -474,7 +395,7 @@ nav .link:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--darkest);
+  background: hsl(256, 25%, 12%);
   opacity: 0.9;
   transition: all 0.2s ease-in-out;
 }

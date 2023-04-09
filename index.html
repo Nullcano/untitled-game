@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>Zeds</title>
+    <title>Enchantum</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -25,7 +25,7 @@
           </svg>
         </div>
         <div class="text">
-          <span>Zeds</span>
+          <span>Enchantum</span>
         </div>
       </div>
       <nav class="nav-container">
@@ -34,45 +34,80 @@
         <div class="link" data-link="merchant">Merchant</div>
         <div class="link" data-link="journal">Journal</div>
       </nav>
-      <div class="currencies">
-        <div class="coins">
-          <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M256 117c-65.2 0-124.2 11.6-166.13 29.7-20.95 9.1-37.57 19.8-48.57 31.1S25 200.4 25 212c0 11.6 5.3 22.9 16.3 34.2 11 11.3 27.62 22 48.57 31.1C131.8 295.4 190.8 307 256 307c65.2 0 124.2-11.6 166.1-29.7 21-9.1 37.6-19.8 48.6-31.1S487 223.6 487 212c0-11.6-5.3-22.9-16.3-34.2-11-11.3-27.6-22-48.6-31.1C380.2 128.6 321.2 117 256 117zM25 255.1v50.2c0 6.3 5.3 17.6 16.3 28.9 11 11.3 27.62 22 48.57 31.1C131.8 383.4 190.8 395 256 395c65.2 0 124.2-11.6 166.1-29.7 21-9.1 37.6-19.8 48.6-31.1s16.3-22.6 16.3-28.9v-50.2c-1.1 1.3-2.2 2.5-3.4 3.7-13.3 13.6-31.8 25.3-54.3 35-45 19.5-106 31.2-173.3 31.2-67.3 0-128.3-11.7-173.28-31.2-22.49-9.7-41.01-21.4-54.3-35-1.19-1.2-2.32-2.5-3.42-3.7z"
-            />
-          </svg>
-          <span class="coins-display">0</span>
-        </div>
-        <div class="gems">
-          <svg viewBox="0 -32 576 576" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M485.5 0L576 160H474.9L405.7 0h79.8zm-128 0l69.2 160H149.3L218.5 0h139zm-267 0h79.8l-69.2 160H0L90.5 0zM0 192h100.7l123 251.7c1.5 3.1-2.7 5.9-5 3.3L0 192zm148.2 0h279.6l-137 318.2c-1 2.4-4.5 2.4-5.5 0L148.2 192zm204.1 251.7l123-251.7H576L357.3 446.9c-2.3 2.7-6.5-.1-5-3.2z"
-            />
-          </svg>
-          <span class="gems-display">0</span>
-        </div>
-      </div>
-      <div class="profile-card">
-        <div class="details">
-          <div class="username"></div>
-          <progress class="experience" value="50" max="100"></progress>
-          <div class="exp-display"></div>
-        </div>
-        <div class="level">
-          <span class="level-display">1</span>
-        </div>
-      </div>
     </header>
     <main class="main-container">
-      <div class="page play active" data-page="play">
-        <div class="title-container">
-          <div class="title">
-            <span>Select Gamemode</span>
+      <aside class="profile-card-provider">
+        <div class="profile-card">
+          <div class="profile-banner"></div>
+          <div class="profile-title">
+            <div class="profile-portrait-provider">
+              <div class="profile-portrait"></div>
+              <div class="profile-frame"></div>
+            </div>
+            <div class="profile-player-provider">
+              <span class="player-name">Playername</span>
+              <div class="profile-level-provider">
+                <span class="player-level">1</span>
+                <div class="profile-experience">
+                  <progress class="experience" value="50" max="100"></progress>
+                  <div class="exp-display"></div>  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="profile-gold-provider">
+            <span class="player-gold">0</span>
+          </div>
+          <div class="profile-stats">
+            <div class="kv">
+              <img src="../images/hud/active.gif">
+              <span class="active-power">0</span>
+            </div>
+            <div class="kv">
+              <img src="../images/hud/passive.gif">
+              <span class="passive-power">0</span>
+            </div>
+            <div class="kv">
+              <img src="../images/hud/electric.gif">
+              <span class="shock-chance">0</span>
+            </div>
+            <div class="kv">
+              <img src="../images/hud/water.gif">
+              <span class="rain-chance">0</span>
+            </div>
+            <div class="kv">
+              <img src="../images/hud/fire.gif">
+              <span class="ignite-chance">0</span>
+            </div>
+            <div class="kv">
+              <img src="../images/hud/earth.gif">
+              <span class="ground-chance">0</span>
+            </div>
+          </div>
+          <div class="profile-currencies">
+            <div class="kv">
+              <img src="../images/hud/electric-token.gif">
+              <span class="player-energy">0</span>
+            </div>
+            <div class="kv">
+              <img src="../images/hud/water-token.gif">
+              <span class="player-droplets">0</span>
+            </div>
+            <div class="kv">
+              <img src="../images/hud/fire-token.gif">
+              <span class="player-ember">0</span>
+            </div>
+            <div class="kv">
+              <img src="../images/hud/earth-token.gif">
+              <span class="player-minerals">0</span>
+            </div>
           </div>
         </div>
+      </aside>
+      <div class="page play active" data-page="play">
         <div class="game-card-grid">
-          <div class="link game-card" data-link="dungeon">
-            <div class="game-card-title">Fight off Zeds</div>
+          <div class="link game-card" data-link="catacombs">
+            <div class="game-card-title">Hunt</div>
             <div class="game-card-body">
               <div class="game-card-info">
                 <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
@@ -97,8 +132,8 @@
               </div>
             </div>
           </div>
-          <div class="link game-card" data-link="crate">
-            <div class="game-card-title">Random Care Package</div>
+          <div class="link game-card" data-link="gather">
+            <div class="game-card-title">Gather</div>
             <div class="game-card-body">
               <div class="game-card-info">
                 <svg
@@ -123,8 +158,46 @@
               </div>
             </div>
           </div>
-          <div class="link game-card" data-link="lottery">
-            <div class="game-card-title">Loot Lottery</div>
+          <div class="link game-card" data-link="tavern">
+            <div class="game-card-title">Tavern</div>
+            <div class="game-card-body">
+              <div class="game-card-info">
+                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M7 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0 1c2.15 0 4.2.4 6.1 1.09L12 16h-1.25L10 20H4l-.75-4H2L.9 10.09A17.93 17.93 0 0 1 7 9zm8.31.17c1.32.18 2.59.48 3.8.92L18 16h-1.25L16 20h-3.96l.37-2h1.25l1.65-8.83zM13 0a4 4 0 1 1-1.33 7.76 5.96 5.96 0 0 0 0-7.52C12.1.1 12.53 0 13 0z"
+                  />
+                </svg>
+                <span class="current-participants">0</span>
+              </div>
+              <div class="game-card-info">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 401.6 401.6"
+                  style="enable-background: new 0 0 401.601 401.6"
+                  xml:space="preserve"
+                >
+                  <path
+                    d="M116.682 229.329c11.286 0 22.195-.729 32.518-2.086V114.094c-10.322-1.356-21.232-2.085-32.518-2.085C52.241 112.009.001 135.702.001 164.93v11.477c0 29.227 52.24 52.922 116.681 52.922zM116.682 288.411c11.286 0 22.195-.729 32.518-2.084v-33.166c-10.325 1.356-21.229 2.095-32.518 2.095-56.25 0-103.199-18.054-114.227-42.082-1.606 3.5-2.454 7.124-2.454 10.839v11.477c0 29.228 52.24 52.921 116.681 52.921zM149.199 314.823v-2.578c-10.325 1.356-21.229 2.095-32.518 2.095-56.25 0-103.199-18.054-114.227-42.082C.848 275.757 0 279.381 0 283.096v11.477c0 29.229 52.24 52.922 116.681 52.922 12.887 0 25.282-.95 36.873-2.7-2.873-5.877-4.355-12.075-4.355-18.496v-11.476zM284.92 22.379c-64.441 0-116.681 23.693-116.681 52.921v11.477c0 29.228 52.24 52.921 116.681 52.921 64.44 0 116.681-23.693 116.681-52.921V75.3c0-29.228-52.241-52.921-116.681-52.921z"
+                  />
+                  <path
+                    d="M284.92 165.626c-56.25 0-103.199-18.053-114.227-42.082-1.606 3.499-2.454 7.123-2.454 10.839v11.477c0 29.228 52.24 52.921 116.681 52.921 64.44 0 116.681-23.693 116.681-52.921v-11.477c0-3.716-.848-7.34-2.454-10.839-11.028 24.029-57.977 42.082-114.227 42.082z"
+                  />
+                  <path
+                    d="M284.92 224.71c-56.25 0-103.199-18.054-114.227-42.082-1.606 3.499-2.454 7.123-2.454 10.839v11.477c0 29.229 52.24 52.922 116.681 52.922 64.44 0 116.681-23.693 116.681-52.922v-11.477c0-3.716-.848-7.34-2.454-10.839-11.028 24.029-57.977 42.082-114.227 42.082z"
+                  />
+                  <path
+                    d="M284.92 286.983c-56.25 0-103.199-18.054-114.227-42.082-1.606 3.5-2.454 7.123-2.454 10.838v11.478c0 29.228 52.24 52.921 116.681 52.921 64.44 0 116.681-23.693 116.681-52.921v-11.478c0-3.715-.848-7.34-2.454-10.838-11.028 24.027-57.977 42.082-114.227 42.082z"
+                  />
+                  <path
+                    d="M284.92 346.066c-56.25 0-103.199-18.053-114.227-42.081-1.606 3.5-2.454 7.125-2.454 10.838V326.3c0 29.228 52.24 52.921 116.681 52.921 64.44 0 116.681-23.693 116.681-52.921v-11.478c0-3.715-.848-7.34-2.454-10.838-11.028 24.028-57.977 42.082-114.227 42.082z"
+                  />
+                </svg>
+                <span class="current-pool">0</span>
+              </div>
+            </div>
+          </div>
+          <div class="link game-card" data-link="hideout">
+            <div class="game-card-title">Hideout</div>
             <div class="game-card-body">
               <div class="game-card-info">
                 <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -163,9 +236,9 @@
           </div>
         </div>
       </div>
-      <div class="page loadout" data-page="loadout">
+      <div class="page loadout" data-page="hideout">
         <div class="title-container">
-          <div class="title">Loadout</div>
+          <div class="title">Hideout</div>
         </div>
         <div class="loadout-container">
           <div class="character">
@@ -190,9 +263,9 @@
           </div>
         </div>
       </div>
-      <div class="page collection" data-page="collection">
+      <div class="page collection" data-page="hideout">
         <div class="title-container">
-          <div class="title">Collection</div>
+          <div class="title">Hideout</div>
           <nav>
             <div class="link active" data-sublink="inventory">
               Inventory 0 / 9
@@ -225,9 +298,9 @@
           <div class="panel vault-items" data-panel="consumables"></div>
         </div>
       </div>
-      <div class="page" data-page="dungeon">
+      <div class="page" data-page="hunt">
         <div class="title-container">
-          <div class="title">Dungeon</div>
+          <div class="title">Hunt</div>
         </div>
         <div class="fight-container">
           <div class="location-info">
@@ -259,9 +332,9 @@
         </div>
         <span class="hint">Click and hold to deal active damage</span>
       </div>
-      <div class="page" data-page="crate">
+      <div class="page" data-page="gather">
         <div class="title-container">
-          <div class="title">Supply Crates</div>
+          <div class="title">Gather</div>
           <div class="button" id="btn">Open</div>
         </div>
         <div class="crate">
@@ -270,9 +343,9 @@
           </div>
         </div>
       </div>
-      <div class="page" data-page="lottery">
+      <div class="page" data-page="tavern">
         <div class="title-container">
-          <div class="title">Loot Lottery</div>
+          <div class="title">Tavern</div>
           <p>Score: <span id="scoreSpan"></span></p>
         </div>
         <div class="game">

@@ -3,7 +3,7 @@ import { enemies } from './lib/enemies.js'
 import { player } from './lib/player.js'
 import { createItem } from './lib/items.js'
 import { locPre, locSuf, locDesc } from './lib/locations.js'
-import { randomItem, randomItems, randomInteger, formatNumber } from './lib/utils.js'
+import { renderElement, randomItem, randomItems, randomInteger, formatNumber, convertGold } from './lib/utils.js'
 
 const usernameDisplay = document.querySelectorAll('.username')
 const levelDisplay = document.querySelectorAll('.level-display')
@@ -133,7 +133,7 @@ const updateInventory = () => {
         <img src="./images/items/${item.id}.png" alt="${item.name}">
         <div class="tooltip">
           <span class="item-name">${item.rarity} ${item.name}</span>
-          <span class="item-price">${formatNumber(item.value)}</span>
+          <span class="item-price">${convertGold(item.value)}</span>
         </div>
       </div>
     `
@@ -179,9 +179,6 @@ const checkLevel = () => {
   }
 }
 
-const updatePlayerCoins = () => {
-  document.querySelector('.coins-display').innerHTML = formatNumber(player.coins)
-}
 const updatePlayerGems = () => {
   document.querySelector('.gems-display').innerHTML = formatNumber(player.gems)
 }
@@ -214,7 +211,7 @@ document.querySelector('#btn').addEventListener('click', () => {
         <div class="tooltip">
           <span class="item-name">${item.rarity} ${item.name}</span>
           <span class="item-power">Power: ${item.power}</span>
-          <span class="item-price">Value: ${formatNumber(item.value)}</span>
+          <span class="item-price">Value: ${renderElement(item.value)}</span>
         </div>
       </div>
     `
@@ -225,8 +222,9 @@ document.querySelector('#btn').addEventListener('click', () => {
 window.onload = () => {
   startDungeon()
   updateInventory()
-  updatePlayerCoins()
-  updatePlayerGems()
+  renderElement('.player-gold', convertGold(player.gold))
+  renderElement('.player-gems', formatNumber(player.gems))
+
   updatePlayerExperience()
   updatePlayerLevel()
   renderTrader()
